@@ -6,10 +6,29 @@
 
         public SimpleTextFile(string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentException("Path cannot be null or whitespace.", nameof(path));            
+            }
             _path = path;
+
+            //Ensure directory existe
+            var directory = Path.GetDirectoryName(path);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);            
+            }
+
+            //Create file if it doesn't exist 
+            if (!File.Exists(_path))
+            {
+                using (File.Create(_path)) ;
+                { 
+                }            
+            }
         }
 
-        public void writeAllLines(string[] lines)
+        public void WriteAllLines(string[] lines)
         {
             File.WriteAllLines(_path, lines);            
         }

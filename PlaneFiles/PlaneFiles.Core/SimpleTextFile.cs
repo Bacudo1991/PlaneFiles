@@ -22,7 +22,7 @@
             //Create file if it doesn't exist 
             if (!File.Exists(_path))
             {
-                using (File.Create(_path)) ;
+                using (File.Create(_path));
                 { 
                 }            
             }
